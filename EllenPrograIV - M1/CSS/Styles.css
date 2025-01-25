@@ -1,0 +1,16 @@
+.image-container {
+    width: 250px; /* Tamaño fijo del marco */
+    height: 250px; /* Tamaño fijo del marco */
+    border-radius: 50%; /* Hace el marco circular */
+    overflow: hidden; /* Asegura que la imagen no se salga del marco */
+    display: flex; /* Centra el contenido dentro del marco */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.image-container img {
+    width: 100%; /* La imagen llena el marco */
+    height: 100%; /* La imagen llena el marco */
+    object-fit: cover; /* Evita que la imagen se deforme */
+}

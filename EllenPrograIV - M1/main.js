@@ -1,18 +1,19 @@
-const {createApp} = Vue;
+const { createApp } = Vue;
 
 createApp({
     data() {
         return {
+            mostrarPantallaInicial: true, // Controla qué pantalla se muestra
             codigo: '',
             nombre: '',
             direccion: '',
             telefono: '',
             email: ''
-        }
+        };
     },
     methods: {
         guardarAlumno() {
-            console.log( 
+            console.log(
                 this.codigo,
                 this.nombre,
                 this.direccion,
