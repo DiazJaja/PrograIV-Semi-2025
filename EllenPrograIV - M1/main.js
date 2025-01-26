@@ -20,6 +20,10 @@ createApp({
                 this.telefono,
                 this.email
             );
+        },
+        reproducirMusica() {
+            const audio = this.$refs.audio;
+            audio.play();
         }
     }
 }).mount('#app');
