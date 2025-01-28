@@ -8,7 +8,8 @@ createApp({
             nombre: '',
             direccion: '',
             telefono: '',
-            email: ''
+            email: '',
+            reproduciendo: false, // Estado de la música
         };
     },
     methods: {
@@ -23,7 +24,19 @@ createApp({
         },
         reproducirMusica() {
             const audio = this.$refs.audio;
-            audio.play();
+            const botonMusica = this.$refs.botonMusica;
+
+            if (this.reproduciendo) {
+                // Detener la música y revertir el estilo
+                audio.pause();
+                this.reproduciendo = false;
+                botonMusica.classList.remove('girando', 'reproduciendo');
+            } else {
+                // Reproducir la música y aplicar estilo
+                audio.play();
+                this.reproduciendo = true;
+                botonMusica.classList.add('girando', 'reproduciendo');
+            }
         }
     }
 }).mount('#app');

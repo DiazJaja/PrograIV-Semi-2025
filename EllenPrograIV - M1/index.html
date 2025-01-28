@@ -13,15 +13,21 @@
         <!-- Pantalla inicial -->
         <div 
             v-if="mostrarPantallaInicial" 
-            class="d-flex flex-column justify-content-center align-items-center vh-100 pantalla-inicial"
+            class="pantalla-inicial"
             @click="mostrarPantallaInicial = false"
             style="cursor: pointer;">
-            <!-- Marco para la imagen -->
-            <div class="image-container">
-                <img src="Imagenes/DQ.jpg" alt="Imagen de bienvenida">
+            <!-- Recuadro con imagen y texto -->
+            <div class="recuadro-inicial">
+                <!-- Marco para la imagen -->
+                <div class="image-container">
+                    <img src="Imagenes/DQ.jpg" alt="Imagen de bienvenida">
+                </div>
+                <!-- Texto de bienvenida -->
+                <div class="texto-bienvenida">
+                    <h1 class="mb-3">Bienvenido</h1>
+                    <p class="text-muted">Haz clic en cualquier parte para ingresar</p>
+                </div>
             </div>
-            <h1 class="mb-3">Bienvenido al Registro</h1>
-            <p class="text-muted">Haz clic en cualquier parte para ingresar</p>
         </div>    
 
         <!-- Formulario de registro -->
@@ -69,7 +75,11 @@
             </form>
 
             <!-- Botón para iniciar música -->
-            <button @click="reproducirMusica" class="btn btn-primary mt-3"><3</button>
+            <button @click="reproducirMusica" class="boton-musica" ref="botonMusica">
+                <i class="bi bi-music-note">🎶
+                </i> <!-- Icono de música -->
+            </button>
+
             <audio ref="audio" loop>
                 <source src="Music/Ellen.mp3" type="audio/mp3">
                 Tu navegador no soporta la reproducción de audio.

@@ -1,20 +1,38 @@
 /* Pantalla inicial con gradiente */
 .pantalla-inicial {
-    background: linear-gradient(to bottom, #cc5069, #984cc1); /* Azul a morado */
+    background: linear-gradient(to bottom, #d64ce8, #e1324a); /* Azul a morado */
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Asegura que ocupe toda la pantalla */
 }
 
-/* Marco de la imagen */
+/* Contenedor del recuadro con más tamaño */
+.recuadro-inicial {
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+    border-radius: 20px;
+    width: 95%; /* Aumenta el ancho para que ocupe más espacio */
+    max-width: 800px; /* Aumenta el máximo tamaño */
+    height: 300px; /* Aumenta la altura */
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos al principio */
+    align-items: center;
+    padding: 80px; /* Aumenta el padding para más espacio interno */
+    flex-direction: row;
+}
+
+/* Marco para la imagen */
 .image-container {
-    width: 250px;
-    height: 250px;
+    width: 200px; /* Aumenta el tamaño del contenedor de la imagen */
+    height: 200px; /* Aumenta la altura del contenedor de la imagen */
     border-radius: 50%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    animation: punPun 1s infinite; /* Aplica la animación */
+    animation: punPun 1s infinite; /* Aplica la animación pun pun a la imagen */
+    margin-right: 80px; /* Ajusta este valor para cambiar la separación entre la imagen y el texto */
 }
 
 /* Imagen dentro del marco */
@@ -32,4 +50,36 @@
     50% {
         transform: scale(1.1); /* Aumenta ligeramente */
     }
+}
+
+/* Texto de bienvenida */
+.texto-bienvenida {
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 350px; /* Aumenta el espacio disponible para el texto */
+}
+
+/* Estilo para el botón de música */
+.boton-musica {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #5ecc50;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.boton-musica.reproduciendo {
+    background-color: #df5151; /* Cambio de color cuando la música está reproduciéndose */
+    animation: punPun 0.8s ease-in-out infinite; /* Animación de pun pun */
 }
