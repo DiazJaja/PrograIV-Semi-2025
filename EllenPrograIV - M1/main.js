@@ -5,20 +5,21 @@ createApp({
         return {
             mostrarPantallaInicial: true, // Controla qué pantalla se muestra
             alumnos: [], // Lista de alumnos
-            codigo: '',
-            nombre: '',
-            direccion: '',
-            municipio: '',
-            distrito: '',
-            telefono: '',
-            fechaNacimiento: '',
-            sexo: '',
+            alumnosFiltrados: [], // Lista filtrada para la búsqueda
+            busqueda: '', // Texto ingresado en la búsqueda
+            codigo: '', 
+            nombre: '', 
+            direccion: '', 
+            municipio: '', 
+            distrito: '', 
+            telefono: '', 
+            fechaNacimiento: '', 
+            sexo: '', 
             reproduciendo: false // Estado de la música
         };
     },
     methods: {
         guardarAlumno() {
-            // Verificar si ya existe el alumno con el mismo código
             let alumnoExistente = localStorage.getItem(this.codigo);
 
             let alumno = {
@@ -33,7 +34,6 @@ createApp({
             };
 
             if (alumnoExistente) {
-                // Si el alumno ya existe, actualizar solo si hay cambios
                 let alumnoGuardado = JSON.parse(alumnoExistente);
                 if (
                     alumnoGuardado.nombre !== this.nombre ||
@@ -44,18 +44,18 @@ createApp({
                     alumnoGuardado.fechaNacimiento !== this.fechaNacimiento ||
                     alumnoGuardado.sexo !== this.sexo
                 ) {
-                    // Solo actualizar si hay cambios
                     localStorage.setItem(this.codigo, JSON.stringify(alumno));
                     this.listarAlumnos();
                     this.limpiarFormulario();
+                    alert("Datos actualizados correctamente."); // Mensaje de éxito
                 } else {
-                    alert('No se realizaron cambios. Los datos no se actualizaron.');
+                    alert("No se realizaron cambios. Los datos no se actualizaron.");
                 }
             } else {
-                // Si el alumno no existe, guardar nuevo alumno
                 localStorage.setItem(this.codigo, JSON.stringify(alumno));
                 this.listarAlumnos();
                 this.limpiarFormulario();
+                alert("Alumno registrado correctamente."); // Mensaje al agregar un nuevo alumno
             }
         },
 
@@ -71,6 +71,7 @@ createApp({
                     console.error("Error al parsear los datos de alumno", e);
                 }
             }
+            this.filtrarAlumnos(); // Se llama a la función de filtrado
         },
 
         verAlumno(alumno) {
@@ -98,11 +99,11 @@ createApp({
             if (this.reproduciendo) {
                 audio.pause();
                 this.reproduciendo = false;
-                botonMusica.classList.remove('girando', 'reproduciendo');
+                botonMusica.classList.remove("girando", "reproduciendo");
             } else {
                 audio.play();
                 this.reproduciendo = true;
-                botonMusica.classList.add('girando', 'reproduciendo');
+                botonMusica.classList.add("girando", "reproduciendo");
             }
         },
 
@@ -115,9 +116,25 @@ createApp({
             this.telefono = '';
             this.fechaNacimiento = '';
             this.sexo = '';
+        },
+
+        filtrarAlumnos() {
+            const termino = this.busqueda.toLowerCase();
+            this.alumnosFiltrados = this.alumnos.filter(alumno => {
+                return (
+                    alumno.codigo.toLowerCase().includes(termino) ||
+                    alumno.nombre.toLowerCase().includes(termino) ||
+                    alumno.distrito.toLowerCase().includes(termino)
+                );
+            });
+        },
+    },
+    watch: {
+        busqueda() {
+            this.filtrarAlumnos(); // Llamar a filtrar cuando el usuario escriba en la búsqueda
         }
     },
-    created() {
-        this.listarAlumnos();
+    mounted() {
+        this.listarAlumnos(); // Al montar la aplicación, listar los alumnos guardados
     }
 }).mount('#app');
