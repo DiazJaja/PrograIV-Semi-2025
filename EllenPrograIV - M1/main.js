@@ -137,4 +137,7 @@ createApp({
     mounted() {
         this.listarAlumnos(); // Al montar la aplicación, listar los alumnos guardados
     }
+
+    
 }).mount('#app');
+
