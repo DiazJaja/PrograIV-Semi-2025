@@ -55,6 +55,7 @@ createApp({
                 "Santa Ana Centro": ["Santa Ana"],
                 "Santa Ana Este": ["Coatepeque", "El Congo"],
                 "Santa Ana Oeste": ["Candelaria de la Frontera", "Chalchuapa"]
+                
             },
             distritosFiltrados: []
         };
@@ -91,16 +92,16 @@ createApp({
                     localStorage.setItem(this.codigo, JSON.stringify(alumno));
                     this.listarAlumnos();
                     this.limpiarFormulario();
-                    alert("Datos actualizados correctamente.");
+                    alertify.success('Datos actualizados correctamente.');
                 } else {
-                    alert("No se realizaron cambios. Los datos no se actualizaron.");
+                    alertify.error('No se realizaron cambios. Los datos no se actualizaron.');
                 }
             } else {
                 localStorage.setItem(this.codigo, JSON.stringify(alumno));
                 this.listarAlumnos();
                 this.limpiarFormulario();
-                alert("Alumno registrado correctamente.");
-            } 
+                alertify.success('Alumno registrado correctamente.');
+            }
         },
         listarAlumnos() {
             this.alumnos = [];
@@ -127,10 +128,18 @@ createApp({
             this.sexo = alumno.sexo;
         },
         eliminarAlumno(alumno) {
-            if (confirm(`¿Estás seguro de eliminar al alumno ${alumno.nombre}?`)) {
-                localStorage.removeItem(alumno.codigo);
-                this.listarAlumnos();
-            }
+            alertify.confirm(
+                'Eliminar Alumno',
+                `¿Estás seguro de eliminar al alumno ${alumno.nombre}?`,
+                () => {
+                    localStorage.removeItem(alumno.codigo);
+                    this.listarAlumnos();
+                    alertify.error('Alumno eliminado correctamente.');
+                },
+                () => {
+                    alertify.message('Eliminación cancelada.');
+                }
+            );
         },
         reproducirMusica() {
             const audio = this.$refs.audio;
