@@ -199,6 +199,7 @@
                                             <tr>
                                                 <th>NOMBRE</th>
                                                 <th>FECHA NAC.</th>
+                                                <th>EDAD</th> <!-- Nueva columna para la edad -->
                                                 <th>MAYOR DE EDAD</th>
                                                 <th>CUMPLEAÑOS HOY</th>
                                             </tr>
@@ -207,6 +208,7 @@
                                             <tr v-for="alumno in alumnosPorFecha" :key="alumno.codigo">
                                                 <td>{{ alumno.nombre }}</td>
                                                 <td>{{ alumno.fechaNacimiento }}</td>
+                                                <td>{{ alumno.edad }}</td> <!-- Mostrar la edad -->
                                                 <td>{{ alumno.esMayorDeEdad ? 'Sí' : 'No' }}</td>
                                                 <td>{{ alumno.estaCumpliendoAnios ? '🎉 Sí' : 'No' }}</td>
                                             </tr>

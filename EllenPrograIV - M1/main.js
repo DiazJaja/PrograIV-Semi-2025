@@ -58,7 +58,6 @@ createApp({
                 "Santa Ana Centro": ["Santa Ana"],
                 "Santa Ana Este": ["Coatepeque", "El Congo"],
                 "Santa Ana Oeste": ["Candelaria de la Frontera", "Chalchuapa"]
-                // ... (tus datos de municipios y distritos)
             },
             distritosFiltrados: []
         };
@@ -207,7 +206,7 @@ createApp({
 
                 return {
                     ...alumno,
-                    edad,
+                    edad, // Agregar la edad al objeto alumno
                     esMayorDeEdad,
                     estaCumpliendoAnios
                 };
