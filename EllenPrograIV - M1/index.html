@@ -82,6 +82,10 @@
                 <button @click="reproducirMusica" class="boton-musica" ref="botonMusica">
                     <i class="bi bi-music-note">🎶</i>
                 </button>
+                <!-- Botón de cumpleaños -->
+                <button @click="togglePantallaCumpleanos" class="boton-cumpleanos" ref="botonCumpleanos">
+                    <i class="bi bi-calendar">🎂</i>
+                </button>
             </div>
 
             <!-- Pantalla del formulario de registro -->
@@ -159,6 +163,61 @@
                                     <input type="reset" value="Nuevo" class="btn btn-warning" @click="limpiarFormulario">
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pantalla de cumpleaños -->
+            <div class="pantalla-cumpleanos" v-if="mostrarPantallaCumpleanos">
+                <div class="recuadro-cumpleanos">
+                    <div class="card mb-3">
+                        <!-- Encabezado del contenedor -->
+                        <div class="card-header text-center">
+                            <h3 class="mb-0">Cumpleaños</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Buscador por fecha de nacimiento -->
+                            <div class="row p-1">
+                                <div class="col-12 col-md-4">
+                                    <input type="date" v-model="fechaBusqueda" class="form-control" placeholder="Buscar por fecha de nacimiento">
+                                </div>
+                            </div>
+                            <!-- Botón "Cumpleaños" -->
+                            <div class="row p-1">
+                                <div class="col-12">
+                                    <button @click="mostrarCumpleañerosHoy" class="btn btn-cumpleanos w-100">
+                                        Cumpleaños
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Tabla de alumnos -->
+                            <div class="row p-1">
+                                <div class="col-12">
+                                    <table class="table table-hover table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>NOMBRE</th>
+                                                <th>FECHA NAC.</th>
+                                                <th>MAYOR DE EDAD</th>
+                                                <th>CUMPLEAÑOS HOY</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="alumno in alumnosPorFecha" :key="alumno.codigo">
+                                                <td>{{ alumno.nombre }}</td>
+                                                <td>{{ alumno.fechaNacimiento }}</td>
+                                                <td>{{ alumno.esMayorDeEdad ? 'Sí' : 'No' }}</td>
+                                                <td>{{ alumno.estaCumpliendoAnios ? '🎉 Sí' : 'No' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- Mensaje si no hay resultados -->
+                                    <div v-if="alumnosPorFecha.length === 0" class="mensaje-no-encontrado">
+                                        <p>No se encontraron alumnos.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

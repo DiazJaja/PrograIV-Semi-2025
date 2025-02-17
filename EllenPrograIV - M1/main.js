@@ -17,6 +17,9 @@ createApp({
             sexo: '',
             reproduciendo: false,
             buscadorAbierto: false,
+            mostrarPantallaCumpleanos: false,
+            fechaBusqueda: '',
+            alumnosPorFecha: [],
             municipios: {
                 "Ahuachapán Norte": ["Atiquizaya", "El Refugio", "San Lorenzo", "Turín"],
                 "Ahuachapán Centro": ["Ahuachapán", "Apaneca", "Concepción de Ataco", "Tacuba"],
@@ -55,7 +58,7 @@ createApp({
                 "Santa Ana Centro": ["Santa Ana"],
                 "Santa Ana Este": ["Coatepeque", "El Congo"],
                 "Santa Ana Oeste": ["Candelaria de la Frontera", "Chalchuapa"]
-                
+                // ... (tus datos de municipios y distritos)
             },
             distritosFiltrados: []
         };
@@ -177,11 +180,81 @@ createApp({
         },
         toggleBuscador() {
             this.buscadorAbierto = !this.buscadorAbierto;
+        },
+        togglePantallaCumpleanos() {
+            this.mostrarPantallaCumpleanos = !this.mostrarPantallaCumpleanos;
+            if (this.mostrarPantallaCumpleanos) {
+                this.filtrarAlumnosPorFecha();
+            }
+        },
+        filtrarAlumnosPorFecha() {
+            const hoy = new Date();
+            const fechaBusqueda = new Date(this.fechaBusqueda);
+
+            this.alumnosPorFecha = this.alumnos.map(alumno => {
+                // Convertir la fecha de nacimiento de "DD/MM/YYYY" a "YYYY-MM-DD"
+                const [dia, mes, anio] = alumno.fechaNacimiento.split('/');
+                const fechaNacimiento = new Date(`${anio}-${mes}-${dia}`);
+
+                // Calcular la edad
+                const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+
+                // Verificar si es mayor de edad
+                const esMayorDeEdad = edad > 18 || (edad === 18 && (hoy.getMonth() > fechaNacimiento.getMonth() || (hoy.getMonth() === fechaNacimiento.getMonth() && hoy.getDate() >= fechaNacimiento.getDate())));
+
+                // Verificar si está cumpliendo años hoy
+                const estaCumpliendoAnios = hoy.getMonth() === fechaNacimiento.getMonth() && hoy.getDate() === fechaNacimiento.getDate();
+
+                return {
+                    ...alumno,
+                    edad,
+                    esMayorDeEdad,
+                    estaCumpliendoAnios
+                };
+            }).filter(alumno => {
+                const [dia, mes, anio] = alumno.fechaNacimiento.split('/');
+                const fechaNacimiento = new Date(`${anio}-${mes}-${dia}`);
+                if (this.fechaBusqueda) {
+                    const [diaBusqueda, mesBusqueda, anioBusqueda] = this.fechaBusqueda.split('/');
+                    const fechaBusqueda = new Date(`${anioBusqueda}-${mesBusqueda}-${diaBusqueda}`);
+                    return fechaNacimiento.getMonth() === fechaBusqueda.getMonth() && fechaNacimiento.getDate() === fechaBusqueda.getDate();
+                } else {
+                    return true; // Mostrar todos si no hay fecha seleccionada
+                }
+            });
+        },
+        mostrarCumpleañerosHoy() {
+            const hoy = new Date();
+
+            this.alumnosPorFecha = this.alumnos.map(alumno => {
+                // Convertir la fecha de nacimiento de "DD/MM/YYYY" a "YYYY-MM-DD"
+                const [dia, mes, anio] = alumno.fechaNacimiento.split('/');
+                const fechaNacimiento = new Date(`${anio}-${mes}-${dia}`);
+
+                // Calcular la edad
+                const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+
+                // Verificar si es mayor de edad
+                const esMayorDeEdad = edad > 18 || (edad === 18 && (hoy.getMonth() > fechaNacimiento.getMonth() || (hoy.getMonth() === fechaNacimiento.getMonth() && hoy.getDate() >= fechaNacimiento.getDate())));
+
+                // Verificar si está cumpliendo años hoy
+                const estaCumpliendoAnios = hoy.getMonth() === fechaNacimiento.getMonth() && hoy.getDate() === fechaNacimiento.getDate();
+
+                return {
+                    ...alumno,
+                    edad,
+                    esMayorDeEdad,
+                    estaCumpliendoAnios
+                };
+            }).filter(alumno => alumno.estaCumpliendoAnios); // Mostrar solo los que cumplen años hoy
         }
     },
     watch: {
         busqueda() {
             this.filtrarAlumnos();
+        },
+        fechaBusqueda() {
+            this.filtrarAlumnosPorFecha();
         }
     },
     mounted() {
