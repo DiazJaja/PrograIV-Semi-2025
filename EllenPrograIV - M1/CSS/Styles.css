@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #d64ce8, #e1324a); /* Fondo gradiente */
+    background: linear-gradient(to bottom, #d64ce8, #e1324a);
     color: white;
 }
 
@@ -77,24 +77,35 @@ body {
     50% { transform: scale(1.1); }
 }
 
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* Contenedor del buscador */
 .contenedor-buscador-alumnos {
-    background: linear-gradient(to bottom, #d64ce8, #e1324a); /* Fondo gradiente */
-    border-radius: 20px; /* Bordes redondeados */
+    background: linear-gradient(to bottom, #d64ce8, #e1324a);
+    border-radius: 20px;
     width: 95%;
     max-width: 1200px;
     padding: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     margin: 20px auto;
     position: fixed;
-    top: 80px; /* Ajusta según la altura de los botones superiores */
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    animation: fadeInScale 0.5s ease-in-out; /* Animación de entrada */
+    animation: fadeInScale 0.5s ease-in-out;
 }
 
 .contenedor-buscador-alumnos.buscador-abierto {
@@ -102,7 +113,31 @@ body {
     visibility: visible;
 }
 
-/* Fondo oscuro semitransparente */
+/* Contenedor de cumpleaños */
+.contenedor-cumpleanos {
+    background: linear-gradient(to bottom, #d64ce8, #e1324a);
+    border-radius: 20px;
+    width: 95%;
+    max-width: 1200px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    animation: fadeInScale 0.5s ease-in-out;
+}
+
+.contenedor-cumpleanos.cumpleanos-abierto {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Fondo oscuro */
 .fondo-oscuro {
     position: fixed;
     top: 0;
@@ -114,14 +149,12 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* Pantalla del formulario de registro */
+/* Formulario de registro */
 .pantalla-formulario-registro {
-    background: linear-gradient(to bottom, #d64ce8, #e1324a);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    animation: fadeIn 0.5s ease-in-out;
+    min-height: 100vh;
 }
 
 .recuadro-formulario-registro {
@@ -131,56 +164,7 @@ body {
     max-width: 800px;
     padding: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
     animation: fadeInScale 0.5s ease-in-out;
-}
-
-/* Pantalla de cumpleaños */
-.contenedor-cumpleanos {
-    background: linear-gradient(to bottom, #d64ce8, #e1324a); /* Fondo gradiente */
-    border-radius: 20px; /* Bordes redondeados */
-    width: 95%;
-    max-width: 800px; /* Ajustado para que no sea demasiado ancho */
-    padding: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    animation: fadeInScale 0.5s ease-in-out; /* Animación de entrada */
-}
-
-.contenedor-cumpleanos.cumpleanos-abierto {
-    opacity: 1;
-    visibility: visible;
-}
-
-.recuadro-cumpleanos {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    width: 100%;
-    padding: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
-    animation: fadeInScale 0.5s ease-in-out;
-}
-
-/* Animación de entrada para el formulario de registro */
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
 /* Botones superiores */
@@ -216,42 +200,45 @@ body {
 }
 
 .boton-buscador.reproduciendo,
-.boton-musica.reproduciendo,
 .boton-cumpleanos.reproduciendo {
     background-color: #df5151;
     animation: punPun 0.8s ease-in-out infinite;
 }
 
-/* Estilos para el mensaje de no encontrado */
-.mensaje-no-encontrado {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Ajusta la altura según sea necesario */
-    font-size: 1.2rem;
-    color: rgb(255, 255, 255);
-    text-align: center;
-}
-
-/* Estilos para la tabla de cumpleaños */
+/* Tablas */
 .table {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     overflow: hidden;
+    margin-top: 20px;
 }
 
-.table th, .table td {
-    padding: 10px;
+.table th,
+.table td {
+    padding: 12px;
     text-align: center;
+    vertical-align: middle;
 }
 
-/* Estilos para el botón "Cumpleaños" */
+/* Mensaje de no encontrado */
+.mensaje-no-encontrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Botón de cumpleaños */
 .btn-cumpleanos {
     background-color: #5ecc50;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

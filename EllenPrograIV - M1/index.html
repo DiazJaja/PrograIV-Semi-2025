@@ -31,6 +31,9 @@
             <!-- Fondo oscuro cuando el buscador está abierto -->
             <div v-if="buscadorAbierto" class="fondo-oscuro" @click="toggleBuscador"></div>
 
+            <!-- Fondo oscuro cuando el formulario de cumpleaños está abierto -->
+            <div v-if="mostrarPantallaCumpleanos" class="fondo-oscuro" @click="togglePantallaCumpleanos"></div>
+
             <!-- Contenedor del buscador -->
             <div class="contenedor-buscador-alumnos" :class="{ 'buscador-abierto': buscadorAbierto }">
                 <!-- Buscador desplegable con la tabla de alumnos -->
