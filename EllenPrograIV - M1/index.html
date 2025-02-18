@@ -83,7 +83,7 @@
                     <i class="bi bi-music-note">🎶</i>
                 </button>
                 <!-- Botón de cumpleaños -->
-                <button @click="togglePantallaCumpleanos" class="boton-cumpleanos" ref="botonCumpleanos">
+                <button @click="togglePantallaCumpleanos" class="boton-cumpleanos" :class="{ 'reproduciendo': mostrarPantallaCumpleanos }" ref="botonCumpleanos">
                     <i class="bi bi-calendar">🎂</i>
                 </button>
             </div>
@@ -169,7 +169,7 @@
             </div>
 
             <!-- Pantalla de cumpleaños -->
-            <div class="pantalla-cumpleanos" v-if="mostrarPantallaCumpleanos">
+            <div class="contenedor-cumpleanos" :class="{ 'cumpleanos-abierto': mostrarPantallaCumpleanos }">
                 <div class="recuadro-cumpleanos">
                     <div class="card mb-3">
                         <!-- Encabezado del contenedor -->

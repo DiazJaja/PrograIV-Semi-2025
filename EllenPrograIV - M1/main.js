@@ -185,7 +185,7 @@ createApp({
             if (this.mostrarPantallaCumpleanos) {
                 this.filtrarAlumnosPorFecha();
             }
-        },
+        }, 
         filtrarAlumnosPorFecha() {
             const hoy = new Date();
             const fechaBusqueda = new Date(this.fechaBusqueda);
