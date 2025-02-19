@@ -156,7 +156,6 @@
                                             <option value="">Seleccione una opción</option>
                                             <option value="Masculino">Masculino</option>
                                             <option value="Femenino">Femenino</option>
-                                            <option value="Las Goticas Bien Tetonas">LGBT</option>
                                         </select>
                                     </div>
                                 </div>
@@ -180,12 +179,6 @@
                             <h3 class="mb-0">Cumpleaños</h3>
                         </div>
                         <div class="card-body">
-                            <!-- Buscador por fecha de nacimiento -->
-                            <div class="row p-1">
-                                <div class="col-12 col-md-4">
-                                    <input type="date" v-model="fechaBusqueda" class="form-control" placeholder="Buscar por fecha de nacimiento">
-                                </div>
-                            </div>
                             <!-- Botón "Cumpleaños" -->
                             <div class="row p-1">
                                 <div class="col-12">
@@ -204,7 +197,6 @@
                                                 <th>FECHA NAC.</th>
                                                 <th>EDAD</th> <!-- Nueva columna para la edad -->
                                                 <th>MAYOR DE EDAD</th>
-                                                <th>CUMPLEAÑOS HOY</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -213,13 +205,12 @@
                                                 <td>{{ alumno.fechaNacimiento }}</td>
                                                 <td>{{ alumno.edad }}</td> <!-- Mostrar la edad -->
                                                 <td>{{ alumno.esMayorDeEdad ? 'Sí' : 'No' }}</td>
-                                                <td>{{ alumno.estaCumpliendoAnios ? '🎉 Sí' : 'No' }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <!-- Mensaje si no hay resultados -->
                                     <div v-if="alumnosPorFecha.length === 0" class="mensaje-no-encontrado">
-                                        <p>No se encontraron alumnos.</p>
+                                        <p>No se encontraron cumpleañeros.</p>
                                     </div>
                                 </div>
                             </div>

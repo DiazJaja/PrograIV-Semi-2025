@@ -224,21 +224,21 @@ createApp({
         },
         mostrarCumpleañerosHoy() {
             const hoy = new Date();
-
+        
             this.alumnosPorFecha = this.alumnos.map(alumno => {
                 // Convertir la fecha de nacimiento de "DD/MM/YYYY" a "YYYY-MM-DD"
                 const [dia, mes, anio] = alumno.fechaNacimiento.split('/');
                 const fechaNacimiento = new Date(`${anio}-${mes}-${dia}`);
-
+        
                 // Calcular la edad
                 const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-
+        
                 // Verificar si es mayor de edad
                 const esMayorDeEdad = edad > 18 || (edad === 18 && (hoy.getMonth() > fechaNacimiento.getMonth() || (hoy.getMonth() === fechaNacimiento.getMonth() && hoy.getDate() >= fechaNacimiento.getDate())));
-
+        
                 // Verificar si está cumpliendo años hoy
                 const estaCumpliendoAnios = hoy.getMonth() === fechaNacimiento.getMonth() && hoy.getDate() === fechaNacimiento.getDate();
-
+        
                 return {
                     ...alumno,
                     edad,
