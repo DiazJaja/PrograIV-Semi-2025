@@ -42,6 +42,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" @click="abrirFormulario('matricula')" href="#">Matrícula</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" @click="abrirFormulario('inscripcion')" href="#">Inscripción</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -54,6 +57,8 @@
             <buscarmateria v-show="forms.buscarMateria.mostrar" ref="buscarmateria" @modificar="modificar('materia', 'modificarMateria', $event)"></buscarmateria>
             <matricula v-show="forms.matricula.mostrar" :forms="forms" ref="matricula" @buscar="buscar('buscarmatricula', 'listarMatriculas')"></matricula>
             <buscarmatricula v-show="forms.buscarMatricula.mostrar" ref="buscarmatricula" @modificar="modificar('matricula', 'modificarMatricula', $event)"></buscarmatricula>
+            <inscripcion v-show="forms.inscripcion.mostrar" :forms="forms" ref="inscripcion" @buscar="buscar('buscarinscripcion', 'listarInscripciones')"></inscripcion>
+            <buscarinscripcion v-show="forms.buscarInscripcion.mostrar" ref="buscarinscripcion" @modificar="modificar('inscripcion', 'modificarInscripcion', $event)"></buscarinscripcion>
         </div>
     </div>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
@@ -64,8 +69,10 @@
     <script src="componentes/alumnos.js"></script>
     <script src="componentes/busqueda_materias.js"></script>
     <script src="componentes/materias.js"></script>
-    <script src="componentes/matricula.js"></script> <!-- Nuevo componente de matrícula -->
-    <script src="componentes/busqueda_matriculas.js"></script> <!-- Si decides crear un componente de búsqueda -->
+    <script src="componentes/matricula.js"></script>
+    <script src="componentes/busqueda_matriculas.js"></script>
+    <script src="componentes/inscripciones.js"></script> <!-- Nuevo componente de inscripción -->
+    <script src="componentes/busqueda_inscripcion.js"></script> <!-- Si decides crear un componente de búsqueda -->
     <script src="main.js"></script>
 </body>
 
