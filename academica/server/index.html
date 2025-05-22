@@ -64,10 +64,16 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
+                                        <th colspan="5" class="text-center">
+                                            <input type="text" id="txtBuscarAmigos" class="form-control" placeholder="Buscar Amigos">
+                                        </th>
+                                    </tr>
+                                    <tr>
                                         <th>Nombre</th>
                                         <th>Direccion</th>
                                         <th>Telefono</th>
                                         <th>Email</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tblAmigos"></tbody>
@@ -82,11 +88,13 @@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
     <script>
+        var method = 'POST';
         document.addEventListener('DOMContentLoaded', function(){
             listarAmigos();
         });
+        txtBuscarAmigos.addEventListener('keyup', listarAmigos);
         function listarAmigos(){
-            fetch('/api/amigos')
+            fetch(`/api/amigos?buscar=${txtBuscarAmigos.value}`)
             .then(res=>res.json())
             .then(data=>{
                 let tblAmigos = document.querySelector('#tblAmigos');
@@ -94,11 +102,14 @@
                 let filas = '';
                 data.forEach(amigo=>{
                     filas += `
-                        <tr>
+                        <tr onclick='modificarAmigo(${ JSON.stringify(amigo) })'>
                             <td>${amigo.nombre}</td>
                             <td>${amigo.direccion}</td>
                             <td>${amigo.telefono}</td>
                             <td>${amigo.email}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick='eliminarAmigo(${JSON.stringify(amigo)}, event)'>DEL</button>
+                            </td>
                         </tr>
                     `;
                 });
@@ -109,31 +120,57 @@
             event.preventDefault();
 
             const amigo = {
+                id: txtNombreAmigo.getAttribute('data-id'),
                 nombre: txtNombreAmigo.value,
                 direccion: txtDireccionAmigo.value,
                 telefono: txtTelefonoAmigo.value,
                 email: txtEmailAmigo.value,
             };
             let res = await fetch('/api/amigos', {
-                method: 'POST',
+                method,
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(amigo)
             }), data = await res.json();
-            if( data.msg!='ok' ){
-                alertify.error('Error al guardar el amigo');
+            if( (data.msg.insertedId || data.msg.modifiedCount || 0)<=0 ){
+                alertify.error(`Error al guardar el amigo: ${data.msg}`);
             }else{
                 nuevoAmigo();
                 listarAmigos();
                 alertify.success('Amigo guardado correctamente');
             }
         });
+        function modificarAmigo(amigo){
+            method = 'PUT';
+            txtNombreAmigo.setAttribute('data-id', amigo._id);
+            txtNombreAmigo.value = amigo.nombre;
+            txtDireccionAmigo.value = amigo.direccion;
+            txtTelefonoAmigo.value = amigo.telefono;
+            txtEmailAmigo.value = amigo.email;
+        }
         function nuevoAmigo(){
+            method = 'POST';
+            txtNombreAmigo.removeAttribute('data-id');
             txtNombreAmigo.value = '';
             txtDireccionAmigo.value = '';
             txtTelefonoAmigo.value = '';
             txtEmailAmigo.value = '';
+        }
+        function eliminarAmigo(amigo, event){
+            event.stopPropagation();
+
+            alertify.confirm('Eliminar Amigo', `¿Esta seguro de eliminar el amigo ${amigo.nombre}?`, async function(){
+                let res = await fetch(`/api/amigos/${amigo._id}`, {
+                    method: 'DELETE'
+                }), data = await res.json();
+                if( data.msg.deletedCount<=0 ){
+                    alertify.error(`Error al eliminar el amigo: ${data.msg}`);
+                }else{
+                    listarAmigos();
+                    alertify.success('Amigo eliminado correctamente');
+                }
+            }, function(){});
         }
     </script>
 </body>
